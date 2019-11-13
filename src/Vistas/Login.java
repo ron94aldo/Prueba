@@ -1,6 +1,8 @@
 
 package Vistas;
 
+
+import Clases.Usuario;
 import javax.swing.JOptionPane;
 
 
@@ -96,24 +98,41 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccederActionPerformed
-        String usuario = "Ronaldo";
-        String clave = "12345";
-        String c = new String (txtClave.getPassword());
-         if (txtUsuario.getText().equals(usuario)&&c.equals(clave)){
         
-        Panel p = new Panel();
-        p.setVisible(true);
-        this.dispose();
-         }
-         else {
-             JOptionPane.showMessageDialog(this,"Error de usuario y/o clave");
-         }
+        String usuario = this.txtUsuario.getText();
+        String clave = new String(this.txtClave.getPassword());
+        
+        String errores = "";
+        errores += usuario.length() == 0 ? "Ingrese el nombre de usuario.\n" : "";
+        errores += clave.length() == 0 ? "Ingrese clave del usuario.\n" : "";
+        
+        if (errores.length() > 0){
+            JOptionPane.showMessageDialog(this, "Corriga los siguientes errores: \n" + errores, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        
+        boolean esValido = Usuario.conectar(usuario, clave);
+        if (esValido){
+            JOptionPane.showMessageDialog(this, "Las credenciales son correctas", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            Panel p = new Panel();
+            p.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "El nombre de usuario y/o clave no son correctas", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+   
+        
+        
+        
     }//GEN-LAST:event_btnAccederActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        System.exit(0);
+       int respuesta = JOptionPane.showConfirmDialog(this, "¿Estas seguro/a de querer salir de la aplicacion?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+       if (respuesta == 0){
+       System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
-
+    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

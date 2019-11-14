@@ -117,6 +117,7 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Las credenciales son correctas", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             Panel p = new Panel();
             p.setVisible(true);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "El nombre de usuario y/o clave no son correctas", "Error", JOptionPane.ERROR_MESSAGE);
         }
